@@ -12,6 +12,7 @@ import ReactPaginate from 'react-paginate';
 import Loader from '../components/Loader';
 import { useDebounceValue } from '../hooks';
 import NoResults from '../components/NoResults';
+import Search from '../components/Search';
 
 const CharactersPage = () => {
 	const [characterName, setCharacterName] = useState('');
@@ -57,6 +58,8 @@ const CharactersPage = () => {
 		[showFilters],
 	);
 
+	const clearSearch = useCallback(() => setCharacterName(''), []);
+
 	if (loading) return <Loader />;
 
 	if (error) return <p>Something went wrong...</p>;
@@ -64,18 +67,12 @@ const CharactersPage = () => {
 	if (!loading && !error)
 		return (
 			<article className='character__section'>
-				<section className='character__search'>
-					<input
-						onChange={(e) => setCharacterName(e.target.value)}
-						value={characterName}
-						type='text'
-						placeholder='Start to type character name...'
-					/>
-					<IoCloseOutline
-						onClick={() => setCharacterName('')}
-						className='clear-search'
-					/>
-				</section>
+				<Search
+					changeHandler={setCharacterName}
+					placeholder='Start to type character name...'
+					value={characterName}
+					clear={clearSearch}
+				/>
 				<section className='character__filters'>
 					<div className='filter-actions'>
 						{filterActions.map((item) => (

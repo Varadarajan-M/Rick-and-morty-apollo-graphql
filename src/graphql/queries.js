@@ -7,7 +7,6 @@ export const GET_CHARACTERS = gql`
 				id
 				name
 				image
-				gender
 				status
 				species
 				origin {
@@ -18,7 +17,6 @@ export const GET_CHARACTERS = gql`
 				}
 				episode {
 					name
-					created
 				}
 			}
 			info {
