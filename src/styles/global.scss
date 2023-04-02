@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Delicious+Handrawn&family=Fasthand&family=Josefin+Sans:wght@300;400&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Oswald:wght@700&display=swap');
+
+* {
+    box-sizing: border-box;
+
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    // background-color: #1e1e1e;
+    background-color: #272b33;
+}
+
+.navbar {
+    // background-color: #24282f;
+    background-color: #1a1e23;
+    // color: #95df28;
+    color: #f2a530;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    &,
+    .nav-links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+    }
+
+    a {
+        color: #f2a530;
+        text-decoration: none;
+        position: relative;
+        transition: width 0.2s ease-in;
+
+
+
+    }
+
+
+    .nav-links {
+        gap: 20px;
+        list-style: none;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 400;
+        font-size: 17px;
+
+        a {
+            &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 15px;
+                background-color: #e2bf8a;
+                width: 0%;
+                min-height: 3px;
+                transition: width 0.1s ease-in;
+            }
+
+            &:hover::before {
+                width: 100%;
+            }
+        }
+    }
+
+    .navbar__brand {
+        font-family: 'Delicious Handrawn', cursive;
+        font-weight: 700;
+        font-size: 30px;
+    }
+}
+
+
+
+.pagination-container {
+    display: flex;
+    width: 100%;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #e2bf8a;
+    cursor: pointer;
+
+    flex-wrap: wrap;
+
+    .active-page {
+        background-color: #7f4f4f;
+        padding: 3px 8px;
+        text-align: center;
+        border-radius: 50%;
+    }
+
+    .pagination__prev_btn,
+    .pagination__next_btn {
+        border: none;
+        outline: none;
+        background-color: rgb(26 30 35);
+        color: #e2bf8a;
+        padding: 2px 14px;
+        border-radius: 5px;
+
+
+        &.disabled {
+            background-color: #5a5555;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+    }
+
+
+}
+
+
+
+
+
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+@media screen and (min-width: 583px) {
+    .navbar {
+        padding: 10px 100px;
+
+        .nav__hamburger {
+            display: none;
+        }
+    }
+
+
+}
+
+@media screen and (max-width: 583px) {
+
+    .navbar {
+        padding: 10px 20px;
+
+        .nav-links {
+            display: none;
+        }
+    }
+}
