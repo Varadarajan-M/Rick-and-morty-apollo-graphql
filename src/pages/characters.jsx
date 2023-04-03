@@ -20,14 +20,17 @@ const CharactersPage = () => {
 
 	const [page, setPage] = useState(1);
 	const [appliedFilters, setAppliedFilters] = useState(initialFilters);
-	const { loading, error, data } = useQuery(GET_CHARACTERS, {
-		variables: {
-			page,
+	const variables = useMemo(() => {
+		return {
+			page: debouncedValue.length === 0 ? page : null,
 			filter: {
 				...appliedFilters,
 				name: debouncedValue,
 			},
-		},
+		};
+	}, [appliedFilters, debouncedValue, page]);
+	const { loading, error, data } = useQuery(GET_CHARACTERS, {
+		variables,
 	});
 
 	const [showFilters, setShowFilters] = useState(false);
@@ -60,11 +63,9 @@ const CharactersPage = () => {
 
 	const clearSearch = useCallback(() => setCharacterName(''), []);
 
-	if (loading) return <Loader />;
-
 	if (error) return <p>Something went wrong...</p>;
 
-	if (!loading && !error)
+	if (!error)
 		return (
 			<article className='character__section'>
 				<Search
@@ -100,28 +101,36 @@ const CharactersPage = () => {
 						  ))
 						: ''}
 				</section>
-				<section className='character__cards'>
-					{data.characters.results.map((character) => (
-						<CharacterCard key={character.id} character={character} />
-					))}
-				</section>
-				{!loading && !error && data.characters.results.length === 0 && (
-					<NoResults />
-				)}
-				{data.characters.info.pages && (
-					<ReactPaginate
-						previousLabel='Prev'
-						pageClassName={'pagination-pages'}
-						containerClassName='pagination-container'
-						previousClassName='pagination__prev_btn'
-						nextClassName='pagination__next_btn'
-						activeClassName='active-page'
-						onPageChange={(selected) => setPage((p) => selected.selected + 1)}
-						pageRangeDisplayed={3}
-						marginPagesDisplayed={2}
-						pageCount={data.characters.info.pages}
-						forcePage={page - 1}
-					/>
+				{loading ? (
+					<Loader />
+				) : (
+					<>
+						<section className='character__cards'>
+							{data.characters.results.map((character) => (
+								<CharacterCard key={character.id} character={character} />
+							))}
+						</section>
+						{!loading && !error && data.characters.results.length === 0 && (
+							<NoResults />
+						)}
+						{data.characters.info.pages && (
+							<ReactPaginate
+								previousLabel='Prev'
+								pageClassName={'pagination-pages'}
+								containerClassName='pagination-container'
+								previousClassName='pagination__prev_btn'
+								nextClassName='pagination__next_btn'
+								activeClassName='active-page'
+								onPageChange={(selected) =>
+									setPage((p) => selected.selected + 1)
+								}
+								pageRangeDisplayed={3}
+								marginPagesDisplayed={2}
+								pageCount={data.characters.info.pages}
+								forcePage={page - 1}
+							/>
+						)}
+					</>
 				)}
 			</article>
 		);
