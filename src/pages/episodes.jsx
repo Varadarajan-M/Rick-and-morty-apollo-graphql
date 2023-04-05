@@ -1,4 +1,4 @@
-import EpisodeCard from '../components/Episodes/EpisodeCard.jsx';
+import EpisodeCard from '../components/episodes/EpisodeCard.jsx';
 import Search from '../components/Search.jsx';
 import '../styles/episodes.scss';
 import Loader from '../components/Loader.jsx';
