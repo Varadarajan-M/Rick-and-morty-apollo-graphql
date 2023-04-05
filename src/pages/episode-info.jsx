@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
 import '../styles/episode-info.scss';
 import { Link, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import NoResults from '../components/NoResults';
-import { GET_EPISODE_INFO } from '../graphql/queries';
 import { getThumbnailPath } from '../util';
 import ReactPaginate from 'react-paginate';
 import { useCustomPagination, useEpisodeInfo } from '../hooks';
