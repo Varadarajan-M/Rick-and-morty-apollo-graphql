@@ -2,7 +2,12 @@ import Navbar from './components/Navbar';
 import './styles/global.scss';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { CharactersPage, EpisodesPage } from './pages';
+import {
+	CharacterInfoPage,
+	CharactersPage,
+	EpisodeInfoPage,
+	EpisodesPage,
+} from './pages';
 
 const routes = [
 	{
@@ -10,8 +15,16 @@ const routes = [
 		element: CharactersPage,
 	},
 	{
+		path: '/characters/:id',
+		element: CharacterInfoPage,
+	},
+	{
 		path: '/episodes',
 		element: EpisodesPage,
+	},
+	{
+		path: '/episodes/:id',
+		element: EpisodeInfoPage,
 	},
 ];
 

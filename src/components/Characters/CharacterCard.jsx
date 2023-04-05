@@ -1,5 +1,13 @@
 import React from 'react';
 import { BsFillCircleFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+
+const colorsByStatus = {
+	Alive: '#0ecb0e',
+	Dead: 'crimson',
+	unknown: 'yellow',
+};
+
 const CharacterCard = ({ character }) => {
 	return (
 		<div className='character-card'>
@@ -9,9 +17,17 @@ const CharacterCard = ({ character }) => {
 
 			<div className='character__details'>
 				<div className='character__name-and-status'>
-					<h4 className='title'>{character.name}</h4>
+					<Link to={`/characters/${character.id}`}>
+						<h4 className='title'>{character.name}</h4>
+					</Link>
+
 					<span className='desc'>
-						<BsFillCircleFill className='red-dot' />
+						<BsFillCircleFill
+							style={{
+								color: colorsByStatus[character.status],
+							}}
+							className='dot'
+						/>
 						{character.status} - {character.species}
 					</span>
 				</div>

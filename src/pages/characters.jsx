@@ -3,11 +3,10 @@ import CharacterCard from '../components/Characters/CharacterCard';
 import { useQuery } from '@apollo/client';
 import '../styles/characters.scss';
 import { GET_CHARACTERS } from '../graphql/queries';
-import { characterFilters, initialFilters } from './../constants';
+import { characterFilters, initialFilters } from './../util';
 import CharacterFilter from '../components/Characters/CharacterFilter';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { FcClearFilters } from 'react-icons/fc';
-import { IoCloseOutline } from 'react-icons/io5';
 import ReactPaginate from 'react-paginate';
 import Loader from '../components/Loader';
 import { useDebounceValue } from '../hooks';
@@ -67,7 +66,7 @@ const CharactersPage = () => {
 
 	if (!error)
 		return (
-			<article className='character__section'>
+			<section className='character__section'>
 				<Search
 					changeHandler={setCharacterName}
 					placeholder='Start to type character name...'
@@ -113,7 +112,7 @@ const CharactersPage = () => {
 						{!loading && !error && data.characters.results.length === 0 && (
 							<NoResults />
 						)}
-						{data.characters.info.pages && (
+						{data.characters.info.pages && data.characters.info.pages > 1 && (
 							<ReactPaginate
 								previousLabel='Prev'
 								pageClassName={'pagination-pages'}
@@ -132,7 +131,7 @@ const CharactersPage = () => {
 						)}
 					</>
 				)}
-			</article>
+			</section>
 		);
 };
 

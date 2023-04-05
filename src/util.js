@@ -28,3 +28,21 @@ export const initialFilters = {
 	species: '',
 	status: '',
 };
+
+import s1 from './assets/S01.png';
+import s2 from './assets/S02.png';
+import s3 from './assets/S02.png';
+import s4 from './assets/S04.png';
+import s5 from './assets/S05.png';
+
+const thumbnails = {
+	S01: s1,
+	S02: s2,
+	S03: s3,
+	S04: s4,
+	S05: s5,
+};
+
+export const getThumbnailPath = (season) => {
+	return thumbnails[season.substr(0, 3)];
+};

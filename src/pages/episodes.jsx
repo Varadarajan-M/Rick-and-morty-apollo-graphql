@@ -29,7 +29,7 @@ const EpisodesPage = () => {
 
 	if (!error)
 		return (
-			<article className='episode-page-container'>
+			<section className='episode-page-container'>
 				<Search
 					changeHandler={setEpisodeName}
 					placeholder='Start to type Episode name...'
@@ -45,7 +45,7 @@ const EpisodesPage = () => {
 								<EpisodeCard key={episode.id} episode={episode} />
 							))}
 						</section>
-						{data.episodes.info.pages && (
+						{data.episodes.info.pages && data.episodes.info.pages > 1 && (
 							<ReactPaginate
 								previousLabel='Prev'
 								pageClassName={'pagination-pages'}
@@ -64,7 +64,7 @@ const EpisodesPage = () => {
 						)}
 					</>
 				)}
-			</article>
+			</section>
 		);
 };
 

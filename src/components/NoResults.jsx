@@ -1,7 +1,7 @@
 import React from 'react';
 import NoResultsImg from '../assets/no_results_img.778e8540.png';
 
-const NoResults = () => {
+const NoResults = ({ text }) => {
 	return (
 		<div
 			style={{
@@ -15,7 +15,9 @@ const NoResults = () => {
 		>
 			<img src={NoResultsImg} height={200} width={200} />
 
-			<div style={{ color: 'white', fontWeight: 500 }}>No Results</div>
+			<div style={{ color: 'white', fontWeight: 500 }}>
+				{text ?? 'No Results'}
+			</div>
 		</div>
 	);
 };
