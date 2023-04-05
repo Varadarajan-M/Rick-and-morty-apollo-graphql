@@ -1,22 +1,17 @@
-import { useQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
-import { GET_CHARACTER_INFO } from '../graphql/queries';
 import Loader from './../components/Loader';
-import React, { Fragment, useState } from 'react';
-import '../styles/character-info.scss';
+import React, { Fragment } from 'react';
 import ReactPaginate from 'react-paginate';
-import { useCustomPagination } from '../hooks';
+import { useCharacterInfo, useCustomPagination } from '../hooks';
 import NoResults from './../components/NoResults';
+import '../styles/character-info.scss';
 
 const CharacterInfoPage = () => {
 	const { id } = useParams();
-	const { loading, error, data } = useQuery(GET_CHARACTER_INFO, {
-		variables: {
-			characterId: id,
-		},
-	});
+	const { loading, error, data } = useCharacterInfo(id);
 
-	if (error) return <p>Something went wrong...</p>;
+	if (error)
+		return <NoResults text={error.message ?? 'Something went wrong..'} />;
 
 	if (!loading && !data.character) return <NoResults />;
 

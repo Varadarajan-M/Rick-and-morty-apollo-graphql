@@ -6,20 +6,17 @@ import NoResults from '../components/NoResults';
 import { GET_EPISODE_INFO } from '../graphql/queries';
 import { getThumbnailPath } from '../util';
 import ReactPaginate from 'react-paginate';
-import { useCustomPagination } from '../hooks';
+import { useCustomPagination, useEpisodeInfo } from '../hooks';
 import Loader from './../components/Loader';
 
 const EpisodeInfoPage = () => {
 	const { id } = useParams();
-	const { loading, error, data } = useQuery(GET_EPISODE_INFO, {
-		variables: {
-			episodeId: id,
-		},
-	});
+	const { loading, error, data } = useEpisodeInfo(id);
 
 	if (loading) return <Loader />;
 
-	if (error) return <p>Something went wrong...</p>;
+	if (error)
+		return <NoResults text={error.message ?? 'Something went wrong..'} />;
 
 	if (!loading && !data.episode) return <NoResults />;
 

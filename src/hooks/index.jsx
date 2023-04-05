@@ -1,41 +1,15 @@
-import { useEffect, useMemo, useState, useCallback } from 'react';
+// custom hooks for common use cases
 
-export function useDebounceValue(value, delay) {
-	const [debouncedValue, setDebouncedValue] = useState(value);
+export { default as useDebounceValue } from './common/useDebounceValue';
+export { default as useCustomPagination } from './common/useCustomPagination';
+export { default as useMenu } from './common/useMenu';
 
-	if (typeof value === 'string') value = value.trim();
+// custom hooks for characters
 
-	let timer = null;
-	useEffect(() => {
-		if (!timer) timer = setTimeout(() => setDebouncedValue(value), delay);
-		return () => clearTimeout(timer);
-	}, [value, delay]);
+export { default as useCharacters } from './characters/useCharacters';
+export { default as useCharacterInfo } from './characters/useCharacterInfo';
 
-	return debouncedValue;
-}
+// custom hooks for episodes
 
-export function useCustomPagination(data, itemsPerPage) {
-	const [page, setPage] = useState(1);
-	const offset = (page - 1) * itemsPerPage;
-	const limit = offset + itemsPerPage;
-	const totalPages = Math.ceil(data?.length / itemsPerPage);
-
-	const paginatedData = useMemo(
-		() => data?.slice(offset, limit),
-		[offset, limit, data],
-	);
-
-	return { page, setPage, paginatedData, totalPages };
-}
-
-export const useMenu = () => {
-	const [open, setOpen] = useState(false);
-	const openMenu = useCallback(() => {
-		setOpen(true);
-	}, []);
-	const closeMenu = useCallback(() => {
-		setTimeout(() => setOpen(false), 200);
-	}, []);
-
-	return { open, openMenu, closeMenu };
-};
+export { default as useEpisodes } from './episodes/useEpisodes';
+export { default as useEpisodeInfo } from './episodes/useEpisodeInfo';

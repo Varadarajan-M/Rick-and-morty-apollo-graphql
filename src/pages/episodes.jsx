@@ -2,30 +2,20 @@ import { useQuery } from '@apollo/client';
 import EpisodeCard from '../components/Episodes/EpisodeCard';
 import Search from '../components/Search';
 import '../styles/episodes.scss';
-import { GET_EPISODES } from '../graphql/queries';
 import Loader from '../components/Loader';
 import ReactPaginate from 'react-paginate';
-import { useMemo, useState } from 'react';
-import { useDebounceValue } from '../hooks';
+import { useState } from 'react';
+import { useDebounceValue, useEpisodes } from '../hooks';
+import NoResults from '../components/NoResults';
 
 const EpisodesPage = () => {
 	const [page, setPage] = useState(1);
 	const [episodeName, setEpisodeName] = useState('');
 	const debouncedValue = useDebounceValue(episodeName, 700);
+	const { loading, error, data } = useEpisodes(debouncedValue, page);
 
-	const variables = useMemo(() => {
-		return {
-			page: debouncedValue.length === 0 ? page : null,
-			filter: {
-				name: debouncedValue,
-			},
-		};
-	}, [debouncedValue, page]);
-	const { loading, error, data } = useQuery(GET_EPISODES, {
-		variables,
-	});
-
-	if (error) return <p>Something went wrong...</p>;
+	if (error)
+		return <NoResults text={error.message ?? 'Something went wrong'} />;
 
 	if (!error)
 		return (
@@ -45,6 +35,9 @@ const EpisodesPage = () => {
 								<EpisodeCard key={episode.id} episode={episode} />
 							))}
 						</section>
+						{!loading && !error && data.episodes.results.length === 0 && (
+							<NoResults />
+						)}
 						{data.episodes.info.pages && data.episodes.info.pages > 1 && (
 							<ReactPaginate
 								previousLabel='Prev'

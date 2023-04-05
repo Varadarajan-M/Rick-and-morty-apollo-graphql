@@ -1,17 +1,15 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import CharacterCard from '../components/Characters/CharacterCard';
-import { useQuery } from '@apollo/client';
-import '../styles/characters.scss';
-import { GET_CHARACTERS } from '../graphql/queries';
+import CharacterCard from '../components/characters/CharacterCard';
 import { characterFilters, initialFilters } from './../util';
-import CharacterFilter from '../components/Characters/CharacterFilter';
+import CharacterFilter from '../components/characters/CharacterFilter';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { FcClearFilters } from 'react-icons/fc';
 import ReactPaginate from 'react-paginate';
 import Loader from '../components/Loader';
-import { useDebounceValue } from '../hooks';
+import { useCharacters, useDebounceValue } from '../hooks';
 import NoResults from '../components/NoResults';
 import Search from '../components/Search';
+import '../styles/characters.scss';
 
 const CharactersPage = () => {
 	const [characterName, setCharacterName] = useState('');
@@ -19,18 +17,12 @@ const CharactersPage = () => {
 
 	const [page, setPage] = useState(1);
 	const [appliedFilters, setAppliedFilters] = useState(initialFilters);
-	const variables = useMemo(() => {
-		return {
-			page: debouncedValue.length === 0 ? page : null,
-			filter: {
-				...appliedFilters,
-				name: debouncedValue,
-			},
-		};
-	}, [appliedFilters, debouncedValue, page]);
-	const { loading, error, data } = useQuery(GET_CHARACTERS, {
-		variables,
-	});
+
+	const { loading, error, data } = useCharacters(
+		debouncedValue,
+		appliedFilters,
+		page,
+	);
 
 	const [showFilters, setShowFilters] = useState(false);
 
@@ -62,7 +54,8 @@ const CharactersPage = () => {
 
 	const clearSearch = useCallback(() => setCharacterName(''), []);
 
-	if (error) return <p>Something went wrong...</p>;
+	if (error)
+		return <NoResults text={error.message ?? 'Something went wrong...'} />;
 
 	if (!error)
 		return (
