@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import '../styles/episode-info.scss';
 import { Link, useParams } from 'react-router-dom';
-import NoResults from '../components/NoResults';
+import NoResults from '../components/NoResults.jsx';
 import { getThumbnailPath } from '../util';
 import ReactPaginate from 'react-paginate';
 import { useCustomPagination, useEpisodeInfo } from '../hooks';
-import Loader from './../components/Loader';
+import Loader from './../components/Loader.jsx';
 
 const EpisodeInfoPage = () => {
 	const { id } = useParams();

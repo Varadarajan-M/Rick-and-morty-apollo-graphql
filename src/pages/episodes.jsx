@@ -1,12 +1,11 @@
-import { useQuery } from '@apollo/client';
-import EpisodeCard from '../components/Episodes/EpisodeCard';
-import Search from '../components/Search';
+import EpisodeCard from '../components/Episodes/EpisodeCard.jsx';
+import Search from '../components/Search.jsx';
 import '../styles/episodes.scss';
-import Loader from '../components/Loader';
+import Loader from '../components/Loader.jsx';
 import ReactPaginate from 'react-paginate';
 import { useState } from 'react';
 import { useDebounceValue, useEpisodes } from '../hooks';
-import NoResults from '../components/NoResults';
+import NoResults from '../components/NoResults.jsx';
 
 const EpisodesPage = () => {
 	const [page, setPage] = useState(1);

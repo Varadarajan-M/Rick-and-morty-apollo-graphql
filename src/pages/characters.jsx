@@ -1,14 +1,14 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import CharacterCard from '../components/characters/CharacterCard';
+import CharacterCard from '../components/characters/CharacterCard.jsx';
 import { characterFilters, initialFilters } from './../util';
-import CharacterFilter from '../components/characters/CharacterFilter';
+import CharacterFilter from '../components/characters/CharacterFilter.jsx';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { FcClearFilters } from 'react-icons/fc';
 import ReactPaginate from 'react-paginate';
-import Loader from '../components/Loader';
+import Loader from '../components/Loader.jsx';
 import { useCharacters, useDebounceValue } from '../hooks';
-import NoResults from '../components/NoResults';
-import Search from '../components/Search';
+import NoResults from '../components/NoResults.jsx';
+import Search from '../components/Search.jsx';
 import '../styles/characters.scss';
 
 const CharactersPage = () => {

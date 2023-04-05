@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
-import Loader from './../components/Loader';
+import Loader from './../components/Loader.jsx';
 import React, { Fragment } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useCharacterInfo, useCustomPagination } from '../hooks';
-import NoResults from './../components/NoResults';
+import NoResults from './../components/NoResults.jsx';
 import '../styles/character-info.scss';
 
 const CharacterInfoPage = () => {
