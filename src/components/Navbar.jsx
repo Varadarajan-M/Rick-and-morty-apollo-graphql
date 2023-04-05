@@ -2,7 +2,7 @@ import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Menu, MenuContainer, MenuItem } from './Menu';
-import useMenu from '../hooks';
+import { useMenu } from '../hooks';
 
 function Navbar() {
 	const { open, openMenu, closeMenu } = useMenu();
