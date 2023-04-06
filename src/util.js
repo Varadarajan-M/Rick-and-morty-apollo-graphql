@@ -46,3 +46,11 @@ const thumbnails = {
 export const getThumbnailPath = (season) => {
 	return thumbnails[season.substr(0, 3)];
 };
+
+export const scrollToTop = () => {
+	document.documentElement.scrollTo({
+		top: 0,
+		left: 0,
+		behavior: 'smooth',
+	});
+};

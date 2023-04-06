@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getThumbnailPath } from '../../util';
+import { HiOutlineExternalLink } from 'react-icons/hi';
 
 const EpisodeCard = ({ episode }) => {
 	return (
@@ -18,6 +19,7 @@ const EpisodeCard = ({ episode }) => {
 			<div className='episode__details'>
 				<Link to={`/episodes/${episode.id}`}>
 					<h4 className='episode__name'>{episode.name}</h4>
+					<HiOutlineExternalLink className='episode__name' />
 				</Link>
 
 				<div className='episode__aired_at'>

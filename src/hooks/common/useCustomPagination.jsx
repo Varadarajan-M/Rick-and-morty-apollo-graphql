@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useCallback } from 'react';
+import { useMemo, useState } from 'react';
 
 export default function useCustomPagination(data, itemsPerPage) {
 	const [page, setPage] = useState(1);

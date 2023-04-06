@@ -1,9 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
 import Loader from './../components/Loader.jsx';
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useCharacterInfo, useCustomPagination } from '../hooks';
 import NoResults from './../components/NoResults.jsx';
+import { HiOutlineExternalLink } from 'react-icons/hi';
 import '../styles/character-info.scss';
 
 const CharacterInfoPage = () => {
@@ -78,6 +79,9 @@ const PaginatedEpisodesList = React.memo(({ data }) => {
 		data,
 		10,
 	);
+	const onPageChange = useCallback(({ selected }) => {
+		setPage((p) => selected + 1);
+	}, []);
 	return (
 		<Fragment>
 			<div className='episodes__wrapper'>
@@ -85,6 +89,7 @@ const PaginatedEpisodesList = React.memo(({ data }) => {
 					<div className='episode' key={episode.id}>
 						<Link to={`/episodes/${episode.id}`}>
 							<h4 className='episode__name'>{episode.name}</h4>
+							<HiOutlineExternalLink className='episode__name' />
 						</Link>
 						<p className='episode__aired-at'>{episode.air_date}</p>
 						<p className='episode__season'>{episode?.episode}</p>
@@ -99,7 +104,7 @@ const PaginatedEpisodesList = React.memo(({ data }) => {
 					previousClassName='pagination__prev_btn'
 					nextClassName='pagination__next_btn'
 					activeClassName='active-page'
-					onPageChange={(selected) => setPage((p) => selected.selected + 1)}
+					onPageChange={onPageChange}
 					pageRangeDisplayed={3}
 					marginPagesDisplayed={2}
 					pageCount={totalPages}

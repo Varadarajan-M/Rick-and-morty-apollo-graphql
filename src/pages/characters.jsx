@@ -1,14 +1,14 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import CharacterCard from '../components/characters/CharacterCard.jsx';
-import { characterFilters, initialFilters } from './../util';
-import CharacterFilter from '../components/characters/CharacterFilter.jsx';
+import CharacterCard from '../components/characters/CharacterCard';
+import { characterFilters, initialFilters, scrollToTop } from './../util';
+import CharacterFilter from '../components/characters/CharacterFilter';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { FcClearFilters } from 'react-icons/fc';
 import ReactPaginate from 'react-paginate';
-import Loader from '../components/Loader.jsx';
+import Loader from '../components/Loader';
 import { useCharacters, useDebounceValue } from '../hooks';
-import NoResults from '../components/NoResults.jsx';
-import Search from '../components/Search.jsx';
+import NoResults from '../components/NoResults';
+import Search from '../components/Search';
 import '../styles/characters.scss';
 
 const CharactersPage = () => {
@@ -53,6 +53,11 @@ const CharactersPage = () => {
 	);
 
 	const clearSearch = useCallback(() => setCharacterName(''), []);
+
+	const onPageChange = useCallback(({ selected }) => {
+		scrollToTop();
+		setPage((p) => selected + 1);
+	}, []);
 
 	if (error)
 		return <NoResults text={error.message ?? 'Something went wrong...'} />;
@@ -113,9 +118,7 @@ const CharactersPage = () => {
 								previousClassName='pagination__prev_btn'
 								nextClassName='pagination__next_btn'
 								activeClassName='active-page'
-								onPageChange={(selected) =>
-									setPage((p) => selected.selected + 1)
-								}
+								onPageChange={onPageChange}
 								pageRangeDisplayed={3}
 								marginPagesDisplayed={2}
 								pageCount={data.characters.info.pages}

@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import '../styles/episode-info.scss';
 import { Link, useParams } from 'react-router-dom';
-import NoResults from '../components/NoResults.jsx';
+import NoResults from '../components/NoResults';
 import { getThumbnailPath } from '../util';
 import ReactPaginate from 'react-paginate';
 import { useCustomPagination, useEpisodeInfo } from '../hooks';
-import Loader from './../components/Loader.jsx';
+import Loader from './../components/Loader';
+import { HiOutlineExternalLink } from 'react-icons/hi';
 
 const EpisodeInfoPage = () => {
 	const { id } = useParams();
@@ -60,6 +61,7 @@ const PaginatedCharacterList = React.memo(({ data }) => {
 						/>
 						<Link to={`/characters/${character.id}`}>
 							<h4 className='character__name'>{character.name}</h4>
+							<HiOutlineExternalLink className='character__name' />
 						</Link>
 					</div>
 				))}

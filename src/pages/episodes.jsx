@@ -1,17 +1,22 @@
-import EpisodeCard from '../components/episodes/EpisodeCard.jsx';
-import Search from '../components/Search.jsx';
+import EpisodeCard from '../components/episodes/EpisodeCard';
+import Search from '../components/Search';
 import '../styles/episodes.scss';
-import Loader from '../components/Loader.jsx';
+import Loader from '../components/Loader';
 import ReactPaginate from 'react-paginate';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useDebounceValue, useEpisodes } from '../hooks';
-import NoResults from '../components/NoResults.jsx';
+import NoResults from '../components/NoResults';
+import { scrollToTop } from '../util.js';
 
 const EpisodesPage = () => {
 	const [page, setPage] = useState(1);
 	const [episodeName, setEpisodeName] = useState('');
 	const debouncedValue = useDebounceValue(episodeName, 700);
 	const { loading, error, data } = useEpisodes(debouncedValue, page);
+	const onPageChange = useCallback(({ selected }) => {
+		scrollToTop();
+		setPage((p) => selected + 1);
+	}, []);
 
 	if (error)
 		return <NoResults text={error.message ?? 'Something went wrong'} />;
@@ -45,9 +50,7 @@ const EpisodesPage = () => {
 								previousClassName='pagination__prev_btn'
 								nextClassName='pagination__next_btn'
 								activeClassName='active-page'
-								onPageChange={(selected) =>
-									setPage((p) => selected.selected + 1)
-								}
+								onPageChange={onPageChange}
 								pageRangeDisplayed={3}
 								marginPagesDisplayed={2}
 								pageCount={data.episodes.info.pages}

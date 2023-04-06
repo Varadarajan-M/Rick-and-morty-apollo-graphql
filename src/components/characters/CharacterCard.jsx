@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsFillCircleFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { HiOutlineExternalLink } from 'react-icons/hi';
 
 const colorsByStatus = {
 	Alive: '#0ecb0e',
@@ -19,6 +20,7 @@ const CharacterCard = ({ character }) => {
 				<div className='character__name-and-status'>
 					<Link to={`/characters/${character.id}`}>
 						<h4 className='title'>{character.name}</h4>
+						<HiOutlineExternalLink className='title' />
 					</Link>
 
 					<span className='desc'>
